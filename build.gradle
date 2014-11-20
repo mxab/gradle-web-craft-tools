@@ -6,7 +6,7 @@ apply plugin: 'idea'
 apply plugin: 'java'
 
 version = "1.0.0-SNAPSHOT"
-
+group = "com.github.mxab.webcrafttools.gradle"
 repositories {
     //mavenLocal()
     mavenCentral()
@@ -20,7 +20,7 @@ dependencies {
 
 
     compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
-    compile 'org.eclipse.jetty:jetty-server:9.3.0.M0'
+    compile 'org.eclipse.jetty:jetty-server:9.3.0.M1'
 	compile 'org.eclipse.jgit:org.eclipse.jgit:3.5.1.201410131835-r'
 	
 	compile "com.google.javascript:closure-compiler:$closureCompilerVersion"

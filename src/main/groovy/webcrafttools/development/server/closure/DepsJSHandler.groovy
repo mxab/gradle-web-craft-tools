@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletResponse
 
 import org.eclipse.jetty.server.Request
 import org.eclipse.jetty.server.handler.AbstractHandler
+import org.slf4j.LoggerFactory
+
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.component.ModuleComponentIdentifier
@@ -13,7 +15,6 @@ import org.gradle.api.artifacts.component.ProjectComponentIdentifier
 import org.gradle.api.artifacts.result.ResolvedComponentResult
 import org.gradle.api.file.SourceDirectorySet
 import org.gradle.api.tasks.SourceSet
-import org.slf4j.LoggerFactory
 
 import webcrafttools.development.server.files.FilePathBuilder
 import webcrafttools.js.closure.DepsParser
@@ -83,7 +84,7 @@ class DepsJSHandler extends AbstractHandler {
 					def fileInfos = depsParser.parse(project.fileTree(srcDir).filter({dirSet.contains(it)}).files)
 					fileInfos.each { FileInfo fileInfo ->
 
-						println "file dep: $fileInfo.file"
+
 						def provides =fileInfo.provides.collect({"'$it'"}).join(",")
 						def requires =fileInfo.requires.collect({"'$it'"}).join(",")
 

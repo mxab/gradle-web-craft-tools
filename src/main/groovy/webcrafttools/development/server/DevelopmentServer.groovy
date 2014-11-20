@@ -2,10 +2,12 @@ package webcrafttools.development.server
 
 import org.eclipse.jetty.server.Server
 import org.eclipse.jetty.server.handler.HandlerList
-import org.gradle.api.Project
-import org.gradle.api.artifacts.Configuration
+import org.eclipse.jetty.server.handler.ResourceHandler
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+
+import org.gradle.api.Project
+import org.gradle.api.artifacts.Configuration
 
 import webcrafttools.content.WebPackContentResolveService
 import webcrafttools.development.server.closure.DepsJSHandler
@@ -22,8 +24,6 @@ class DevelopmentServer {
 	WebSourceSet sourceSet
 	Project project
 	int port = 10101
-
-	def js = "app.min.js"
 
 	Configuration configuration
 
@@ -53,13 +53,17 @@ class DevelopmentServer {
 		def depsJSHandler = new DepsJSHandler([project:project, configuration:configuration])
 		handlers << depsJSHandler
 
+		ResourceHandler resourceHandler = new ResourceHandler()
+		resourceHandler.resourceBase = project.projectDir.path
+		handlers << resourceHandler
 
 
 		handlerList.handlers = handlers
+
 		server.handler = handlerList
 		server.start()
 
-		logger.info('Started Development Server at {}', server.URI)
+		println "Started Development Server at $server.URI"
 		server.join()
 	}
 }
